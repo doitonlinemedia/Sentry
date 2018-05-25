@@ -1,0 +1,22 @@
+{
+  "name": "Laravel Sentry API",
+  "description": "Sentry API for Laravel Framework",
+  "keywords": ["framework", "laravel", "Sentry", "API"],
+  "license": "MIT",
+  "type": "package",
+  "require": {
+    "sentry/sentry-laravel": "^0.9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Doitonlinemedia\\Sentry\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Doitonlinemedia\\Sentry\\SentryServiceProvider"
+      ]
+    }
+  }
+}
