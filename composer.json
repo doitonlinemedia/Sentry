@@ -1,5 +1,5 @@
 {
-  "name": "Doitonlinemedia_CMS_Sentry",
+  "name": "doitonlinemedia/sentry",
   "description": "Sentry API for Laravel Framework",
   "keywords": ["framework", "laravel", "Sentry", "API"],
   "license": "MIT",
