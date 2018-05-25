@@ -30,7 +30,8 @@ class SentryAPI
     }
 
     public static function install($project){
-        $dsn = json_decode(self::cURLRequest("https://sentry.io/api/0/projects/jesper-menting/".$project."/keys/", "GET"))[0]->dsn;
+        $response = self::cURLRequest("https://sentry.io/api/0/projects/jesper-menting/".$project."/keys/", "GET");
+        $dsn = json_decode($response)[0]->dsn;
         if(strpos($project, 'laravel_') !== false){
             SentryAPI::setEnvironmentVariable('SENTRY_LARAVEL_DSN', $dsn->secret);
             SentryAPI::setExceptionHandler();
