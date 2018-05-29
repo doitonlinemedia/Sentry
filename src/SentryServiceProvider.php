@@ -13,7 +13,9 @@ class SentryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->publishes([
+            __DIR__.'/config/sentry.php' => config_path('sentry.php'),
+        ], 'sentry-api');
     }
 
     /**

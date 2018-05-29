@@ -29,6 +29,10 @@ class SentryAPI
         self::cURLRequest("https://sentry.io/api/0/teams/jesper-menting/jesper-menting/projects/", "POST", "{\"name\": \" Javascript_" . $name ."\", \"platform\": \"javascript\"}");
     }
 
+    public static function getIssues($type){
+        return json_decode(self::cURLRequest("https://sentry.io/api/0/projects/" .config('sentry.team_name'). "/" .$type. "_" .config('sentry.project_name'). "/issues/", "GET"));
+    }
+
     public static function install($project){
         $response = self::cURLRequest("https://sentry.io/api/0/projects/jesper-menting/".$project."/keys/", "GET");
         $dsn = json_decode($response)[0]->dsn;
@@ -58,10 +62,11 @@ class SentryAPI
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer 3a621cb7515e4b90881ebfb36a7231b31a0e7bf8454a41e59057e69ea8855884",
+                "Authorization: Bearer " . config('sentry.bearer_token'),
                 "Cache-Control: no-cache",
                 "Content-Type: application/json"
-            ),);
+            ),
+        );
 
         if($field != null) $setopt_array[CURLOPT_POSTFIELDS] = $field;
         curl_setopt_array($curl, $setopt_array);
@@ -71,4 +76,5 @@ class SentryAPI
         if ($err) return "cURL Error #:" . $err;
         return $response;
     }
+
 }
