@@ -16,5 +16,6 @@ return array(
 
     'project_name' => '',
     'team_name' => '',
+    'organization_name' => '',
 );
 

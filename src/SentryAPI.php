@@ -25,8 +25,8 @@ class SentryAPI
     }
 
     public static function createProject($name){
-        self::cURLRequest("https://sentry.io/api/0/teams/jesper-menting/jesper-menting/projects/", "POST", "{\"name\": \" Laravel_" . $name ."\", \"platform\": \"php-laravel\"}");
-        self::cURLRequest("https://sentry.io/api/0/teams/jesper-menting/jesper-menting/projects/", "POST", "{\"name\": \" Javascript_" . $name ."\", \"platform\": \"javascript\"}");
+        self::cURLRequest("https://sentry.io/api/0/teams/".config('sentry.organization')."/".config('sentry.organization')."/projects/", "POST", "{\"name\": \" Laravel_" . $name ."\", \"platform\": \"php-laravel\"}");
+        self::cURLRequest("https://sentry.io/api/0/teams/".config('sentry.organization')."/".config('sentry.organization')."/projects/", "POST", "{\"name\": \" Javascript_" . $name ."\", \"platform\": \"javascript\"}");
     }
 
     public static function getIssues($type){
@@ -34,7 +34,7 @@ class SentryAPI
     }
 
     public static function install($project){
-        $response = self::cURLRequest("https://sentry.io/api/0/projects/jesper-menting/".$project."/keys/", "GET");
+        $response = self::cURLRequest("https://sentry.io/api/0/projects/".config('sentry.team_name')."/".$project."/keys/", "GET");
         $dsn = json_decode($response)[0]->dsn;
         if(strpos($project, 'laravel_') !== false){
             SentryAPI::setEnvironmentVariable('SENTRY_LARAVEL_DSN', $dsn->secret);
